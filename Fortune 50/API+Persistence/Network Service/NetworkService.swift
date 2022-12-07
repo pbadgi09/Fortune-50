@@ -37,7 +37,9 @@ final class NetworkService {
             //  convert data
             do {
                 let companyData = try JSONDecoder().decode([CompanyResponse].self, from: companyData)
-                completion(.success(companyData))
+                DispatchQueue.main.async {
+                    completion(.success(companyData))
+                }
             } catch let error {
                 print("DEBUG: Error Decoding Company Data: \(error.localizedDescription)")
                 completion(.failure(.decodeError))

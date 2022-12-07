@@ -1,5 +1,5 @@
 //
-//  CompanysListVC.swift
+//  FavouritesListVC.swift
 //  Fortune 50
 //
 //  Created by Pranav Badgi on 12/7/22.
@@ -7,18 +7,11 @@
 
 import UIKit
 
-final class CompanysListVC: UIViewController {
+final class FavouritesListVC: UIViewController {
     
     //MARK: - Properties
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
-    private let favouritesBarButtonItem: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        button.tintColor = .label
-        return button
-    }()
     
     private let collectionView: UICollectionView = {
         let layout                      = UICollectionViewFlowLayout()
@@ -39,12 +32,9 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
     //MARK: - Properties
     
-    var companyResponse = [CompanyResponse]() {
-        didSet { collectionView.reloadData() }
-    }
+    
     
     
     
@@ -125,15 +115,15 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
     private func configureNavigationBar() {
-        title                                                   = "Fortune 50"
+        title                                                   = "Favourites"
         navigationController?.navigationBar.prefersLargeTitles  = true
         navigationItem.searchController                         = searchController
-        navigationItem.rightBarButtonItem                       = UIBarButtonItem(customView: favouritesBarButtonItem)
     }
     
-   
+    
+    
+    
     
     
     private func configureViews() {
@@ -161,7 +151,7 @@ final class CompanysListVC: UIViewController {
     
     /// Adds recognizers and targets
     private func addRecognizers() {
-        favouritesBarButtonItem.addTarget(self, action: #selector(favouritesBarButtonTapped), for: .touchUpInside)
+        
     }
     
     
@@ -201,7 +191,7 @@ final class CompanysListVC: UIViewController {
     
     /// Executes APIs
     private func executeAPIs() {
-        fetchCompanyData()
+        
     }
     
     
@@ -210,18 +200,6 @@ final class CompanysListVC: UIViewController {
     
     
     
-    private func fetchCompanyData() {
-        DispatchQueue.main.async {
-            NetworkService.shared.getCompanyData { result in
-                switch result {
-                case .success(let success):
-                    self.companyResponse = success
-                case .failure(let failure):
-                    print("DEBUG: Failed to get data: \(failure.description)")
-                }
-            }
-        }
-    }
     
     
     
@@ -239,9 +217,7 @@ final class CompanysListVC: UIViewController {
     //MARK: - Selectors
     
     
-    @objc private func favouritesBarButtonTapped() {
-        navigationController?.pushViewController(FavouritesListVC(), animated: true)
-    }
+    
     
     
     
@@ -276,17 +252,15 @@ final class CompanysListVC: UIViewController {
 //MARK: - Extensions
 
 //MARK: - Collection View Delegate & Data Source
-extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension FavouritesListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return companyResponse.count
+        return 10
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let companyResponse = companyResponse[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
-        cell.configureCellUI(companyResponse)
         return cell
     }
     
@@ -294,7 +268,7 @@ extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 
 //MARK: - Collection View Delegate Flow Layout
-extension CompanysListVC: UICollectionViewDelegateFlowLayout {
+extension FavouritesListVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width   = collectionView.frame.size.width
@@ -305,9 +279,8 @@ extension CompanysListVC: UICollectionViewDelegateFlowLayout {
 }
 
 
-
 //MARK: - Search Bar Controller Delegate
-extension CompanysListVC: UISearchBarDelegate {
+extension FavouritesListVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("DEBUG: Searching for: \(searchText)")
