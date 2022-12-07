@@ -323,10 +323,15 @@ extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
         } else {
             response = companyResponse[indexPath.row]
         }
-        print("DEBUG: \(response.symbol) Tapped")
+        let viewController              = CompanyDetailsVC()
+        viewController.companyResponse  = response
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
+
+
+
 
 
 //MARK: - Collection View Delegate Flow Layout
@@ -339,6 +344,9 @@ extension CompanysListVC: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+
 
 
 
