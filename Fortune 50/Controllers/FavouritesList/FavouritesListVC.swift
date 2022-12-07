@@ -10,9 +10,7 @@ import UIKit
 final class FavouritesListVC: UIViewController {
     
     //MARK: - Properties
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    
+        
     private let collectionView: UICollectionView = {
         let layout                      = UICollectionViewFlowLayout()
         layout.sectionInset             = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -34,10 +32,9 @@ final class FavouritesListVC: UIViewController {
     
     //MARK: - Properties
     
-    
-    
-    
-    
+    var favouritedCompanies = [CDCompanyResponse]() {
+        didSet { collectionView.reloadData() }
+    }
     
     
     
@@ -59,9 +56,7 @@ final class FavouritesListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        addRecognizers()
         addDelegates()
-        executeAPIs()
     }
     
     
@@ -82,7 +77,12 @@ final class FavouritesListVC: UIViewController {
     deinit { print("Deinit: \(self) deinitialized") }
     
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
     
     
     
@@ -118,7 +118,6 @@ final class FavouritesListVC: UIViewController {
     private func configureNavigationBar() {
         title                                                   = "Favourites"
         navigationController?.navigationBar.prefersLargeTitles  = true
-        navigationItem.searchController                         = searchController
     }
     
     
@@ -149,78 +148,14 @@ final class FavouritesListVC: UIViewController {
     
     
     
-    /// Adds recognizers and targets
-    private func addRecognizers() {
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
     /// Adds delegates
     private func addDelegates() {
-        searchController.searchBar.delegate = self
         collectionView.delegate             = self
         collectionView.dataSource           = self
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /// Executes APIs
-    private func executeAPIs() {
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //MARK: - Selectors
-    
-    
-    
-    
-    
-    
     
     
     
@@ -255,13 +190,22 @@ final class FavouritesListVC: UIViewController {
 extension FavouritesListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return favouritedCompanies.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
+        let response        = favouritedCompanies[indexPath.row]
+        let cell            = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
+        cell.configureCellUI(response)
         return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController              = CompanyDetailsVC()
+        viewController.companyResponse  = favouritedCompanies[indexPath.row]
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
@@ -274,16 +218,6 @@ extension FavouritesListVC: UICollectionViewDelegateFlowLayout {
         let width   = collectionView.frame.size.width
         let height  = width / 5
         return CGSize(width: width, height: height)
-    }
-    
-}
-
-
-//MARK: - Search Bar Controller Delegate
-extension FavouritesListVC: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("DEBUG: Searching for: \(searchText)")
     }
     
 }

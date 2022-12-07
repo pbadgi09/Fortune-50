@@ -119,6 +119,21 @@ final class CoreDataManager {
     
     
     
+    func getFavouritedCompanys() -> [CDCompanyResponse] {
+        let fetchRequest: NSFetchRequest<CDCompanyResponse> = CDCompanyResponse.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: ["isFavourited", true])
+        do {
+            let companys = try context.fetch(fetchRequest)
+            return companys
+        } catch let error {
+            print("DEBUG: Error fetching favourited companies: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    
+    
+    
     
     
     func fetchSingleCompanyDetails(_ company: CompanyResponse) -> CDCompanyResponse? {
@@ -166,6 +181,14 @@ final class CoreDataManager {
             return false
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

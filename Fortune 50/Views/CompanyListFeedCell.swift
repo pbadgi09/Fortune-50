@@ -101,9 +101,7 @@ final class CompanyListFeedCell: UICollectionViewCell {
         
         companyNameLabel.centerY(self)
         companyNameLabel.constraint(left: companySymbolLabel.rightAnchor,
-                                    right: favouritesIcon.leftAnchor,
-                                    paddingLeft: 10,
-                                    paddingRight: 10)
+                                    paddingLeft: 10)
         
     }
     

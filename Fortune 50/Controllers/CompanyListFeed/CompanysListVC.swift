@@ -242,7 +242,9 @@ final class CompanysListVC: UIViewController {
     
     
     @objc private func favouritesBarButtonTapped() {
-        navigationController?.pushViewController(FavouritesListVC(), animated: true)
+        let viewController = FavouritesListVC()
+        viewController.favouritedCompanies = CoreDataManager.shared.getFavouritedCompanys()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     
