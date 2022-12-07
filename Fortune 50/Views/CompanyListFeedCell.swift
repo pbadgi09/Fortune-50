@@ -35,7 +35,6 @@ final class CompanyListFeedCell: UICollectionViewCell {
     
     fileprivate let favouritesIcon: UIButton = {
         let button                      = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         button.tintColor                = .label
         button.imageView?.contentMode   = .scaleAspectFit
         return button
@@ -115,11 +114,16 @@ final class CompanyListFeedCell: UICollectionViewCell {
     
     
     
-    func configureCellUI(_ companyResponse: CompanyResponse) {
+    func configureCellUI(_ companyResponse: CDCompanyResponse) {
         let symbol      = companyResponse.symbol
         let companyName = companyResponse.name
         companySymbolLabel.text = symbol
-        companyNameLabel.text = companyName
+        companyNameLabel.text   = companyName
+        if companyResponse.isFavourited {
+            favouritesIcon.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            favouritesIcon.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
     }
     
     

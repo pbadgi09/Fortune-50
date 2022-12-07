@@ -49,11 +49,11 @@ final class CompanysListVC: UIViewController {
     
     //MARK: - Properties
     
-    var companyResponse = [CompanyResponse]() {
+    var cdCompanyResponse = [CDCompanyResponse]() {
         didSet { collectionView.reloadData() }
     }
     
-    var filteredCompanyResponse = [CompanyResponse]() {
+    var filteredCompanyResponse = [CDCompanyResponse]() {
         didSet { collectionView.reloadData() }
     }
     
@@ -214,27 +214,10 @@ final class CompanysListVC: UIViewController {
     
     /// Executes APIs
     private func executeAPIs() {
-        fetchCompanyData()
+        
     }
     
     
-    
-    
-    
-    
-    
-    private func fetchCompanyData() {
-        DispatchQueue.main.async {
-            NetworkService.shared.getCompanyData { result in
-                switch result {
-                case .success(let success):
-                    self.companyResponse = success
-                case .failure(let failure):
-                    print("DEBUG: Failed to get data: \(failure.description)")
-                }
-            }
-        }
-    }
     
     
     
@@ -290,18 +273,18 @@ extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if inSearchMode {
             return filteredCompanyResponse.count
         } else {
-            return companyResponse.count
+            return cdCompanyResponse.count
         }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var response: CompanyResponse!
+        var response: CDCompanyResponse!
         let cell            = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
         if inSearchMode {
             response = filteredCompanyResponse[indexPath.row]
         } else {
-            response = companyResponse[indexPath.row]
+            response = cdCompanyResponse[indexPath.row]
         }
         cell.configureCellUI(response)
         return cell
@@ -310,11 +293,11 @@ extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var response: CompanyResponse!
+        var response: CDCompanyResponse!
         if inSearchMode {
             response = filteredCompanyResponse[indexPath.row]
         } else {
-            response = companyResponse[indexPath.row]
+            response = cdCompanyResponse[indexPath.row]
         }
         let viewController              = CompanyDetailsVC()
         viewController.companyResponse  = response
@@ -349,8 +332,8 @@ extension CompanysListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             inSearchMode = true
-            filteredCompanyResponse = companyResponse.filter({ company in
-                return company.symbol.lowercased().contains(searchText.lowercased())
+            filteredCompanyResponse = cdCompanyResponse.filter({ company in
+                return company.symbol!.lowercased().contains(searchText.lowercased())
             })
             DispatchQueue.main.async {
                 self.collectionView.reloadData()

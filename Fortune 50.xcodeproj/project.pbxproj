@@ -26,8 +26,9 @@
 		22BD3BFC294123CC008247D0 /* FavouritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3BFB294123CC008247D0 /* FavouritesListVC.swift */; };
 		22BD3BFF29412EBE008247D0 /* CompanyDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3BFE29412EBE008247D0 /* CompanyDetailsVC.swift */; };
 		22BD3C0229413859008247D0 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0129413859008247D0 /* SettingsVC.swift */; };
-		22BD3C05294139F6008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C03294139F6008247D0 /* CDCompanyResponse+CoreDataClass.swift */; };
-		22BD3C06294139F6008247D0 /* CDCompanyResponse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C04294139F6008247D0 /* CDCompanyResponse+CoreDataProperties.swift */; };
+		22BD3C0829413A23008247D0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0729413A23008247D0 /* CoreDataManager.swift */; };
+		22BD3C0B294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C09294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift */; };
+		22BD3C0C294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0A294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,8 +53,9 @@
 		22BD3BFB294123CC008247D0 /* FavouritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListVC.swift; sourceTree = "<group>"; };
 		22BD3BFE29412EBE008247D0 /* CompanyDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsVC.swift; sourceTree = "<group>"; };
 		22BD3C0129413859008247D0 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		22BD3C03294139F6008247D0 /* CDCompanyResponse+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataClass.swift"; sourceTree = "<group>"; };
-		22BD3C04294139F6008247D0 /* CDCompanyResponse+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		22BD3C0729413A23008247D0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		22BD3C09294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataClass.swift"; sourceTree = "<group>"; };
+		22BD3C0A294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,8 +238,8 @@
 		22BD3BDE294111F4008247D0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				22BD3C03294139F6008247D0 /* CDCompanyResponse+CoreDataClass.swift */,
-				22BD3C04294139F6008247D0 /* CDCompanyResponse+CoreDataProperties.swift */,
+				22BD3C09294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift */,
+				22BD3C0A294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,6 +247,7 @@
 		22BD3BDF294111F6008247D0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				22BD3C0729413A23008247D0 /* CoreDataManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -380,18 +383,19 @@
 				22BD3BEC29411266008247D0 /* UIView+Label.swift in Sources */,
 				22BD3BFC294123CC008247D0 /* FavouritesListVC.swift in Sources */,
 				22BD3BE52941124E008247D0 /* UIViewController+Extensions.swift in Sources */,
+				22BD3C0B294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */,
 				22BD3BB7294110CA008247D0 /* AppDelegate.swift in Sources */,
-				22BD3C05294139F6008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */,
 				22BD3BEB29411266008247D0 /* UIView+Button.swift in Sources */,
 				22BD3BFF29412EBE008247D0 /* CompanyDetailsVC.swift in Sources */,
 				22BD3BF329411883008247D0 /* CompanyResponse.swift in Sources */,
 				22BD3BEE29411285008247D0 /* LaunchVC.swift in Sources */,
 				22BD3BC1294110CA008247D0 /* Fortune_50.xcdatamodeld in Sources */,
+				22BD3C0C294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift in Sources */,
 				22BD3BE62941124E008247D0 /* UIView+AnchorExtension.swift in Sources */,
 				22BD3BF729411C29008247D0 /* NetworkError.swift in Sources */,
 				22BD3BF929412143008247D0 /* CompanyListFeedCell.swift in Sources */,
 				22BD3BF52941193C008247D0 /* NetworkService.swift in Sources */,
-				22BD3C06294139F6008247D0 /* CDCompanyResponse+CoreDataProperties.swift in Sources */,
+				22BD3C0829413A23008247D0 /* CoreDataManager.swift in Sources */,
 				22BD3BB9294110CA008247D0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -77,8 +77,6 @@ final class CompanyDetailsVC: UIViewController {
         button.tintcolor        = .systemBackground
         button.backgroundcolor  = .label
         button.isLargeButton    = true
-        button.placeholder      = "Add to Favourites"
-        button.buttonImage      = UIImage(systemName: "heart")
         return button
     }()
     
@@ -96,7 +94,7 @@ final class CompanyDetailsVC: UIViewController {
     
     //MARK: - Properties
     
-    var companyResponse: CompanyResponse? {
+    var companyResponse: CDCompanyResponse? {
         didSet {
             updateViews()
         }
@@ -251,11 +249,31 @@ final class CompanyDetailsVC: UIViewController {
     
     private func updateViews() {
         guard let companyResponse = companyResponse else { return }
-        title               = companyResponse.name
-        symbolLabel.text    = companyResponse.symbol
-        fmtLabel.setAttributedText("Fmt: ", companyResponse.marketCap.fmt, .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
-        longFmtLabel.setAttributedText("Long Fmt: ", companyResponse.marketCap.longFmt, .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
-        rawLabel.setAttributedText("Raw: ", "\(companyResponse.marketCap.raw)", .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
+        guard let name = companyResponse.name,
+              let symbol = companyResponse.symbol,
+              let fmt = companyResponse.fmt,
+              let longFmt = companyResponse.longFmt,
+              let raw = companyResponse.raw else { return }
+        
+        title               = name
+        symbolLabel.text    = symbol
+        fmtLabel.setAttributedText("Fmt: ", fmt, .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
+        longFmtLabel.setAttributedText("Long Fmt: ", longFmt, .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
+        rawLabel.setAttributedText("Raw: ", raw, .label, .label, UIFont.systemFont(ofSize: 16), UIFont.boldSystemFont(ofSize: 18))
+        configureFavouritesButton(companyResponse.isFavourited)
+    }
+    
+    
+    
+    
+    private func configureFavouritesButton(_ isFavourited: Bool) {
+        if isFavourited {
+            addToFavouriteButton.placeholder = "Remove from Favourites"
+            addToFavouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            addToFavouriteButton.placeholder = "Add to Favourites"
+            addToFavouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
     }
     
     

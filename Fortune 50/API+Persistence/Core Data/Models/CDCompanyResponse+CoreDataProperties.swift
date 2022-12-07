@@ -18,7 +18,7 @@ extension CDCompanyResponse {
 
     @NSManaged public var fmt: String?
     @NSManaged public var longFmt: String?
-    @NSManaged public var raw: Int32
+    @NSManaged public var raw: String?
     @NSManaged public var name: String?
     @NSManaged public var symbol: String?
     @NSManaged public var isFavourited: Bool

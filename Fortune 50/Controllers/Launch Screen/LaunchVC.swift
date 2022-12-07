@@ -111,17 +111,52 @@ final class LaunchVC: UIViewController {
     
     
     private func fetchAndShowCompanyListFeed() {
-        let viewController                      = CompanysListVC()
-        let navController                       = UINavigationController(rootViewController: viewController)
-        navController.modalPresentationStyle    = .fullScreen
-        navController.modalTransitionStyle      = .crossDissolve
-        present(navController, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            NetworkService.shared.getCompanyData { result in
+                switch result {
+                case .success(let success):
+                    self.saveToCoreData(success)
+                case .failure(let failure):
+                    print("DEBUG: Failed to Fetch Data: \(failure.description)")
+                }
+            }
+        }
     }
     
     
     
     
-    
+    private func saveToCoreData(_ companyResponse: [CompanyResponse]) {
+        for company in companyResponse {
+            //  check if exists
+            if CoreDataManager.shared.checkIfExists(company.symbol) {
+                //  get the isFav property
+                let isFavourited = CoreDataManager.shared.getIsFavouritedProperty(company)
+                //  save/update in core data
+                CoreDataManager.shared.saveUpdateCompanyDetails(company, isFavourited) { done in
+                    if done {
+                        print("DEBUG: \(company.name) saved to Core Data ✅")
+                    }
+                }
+            } else {
+                //  save to core data
+                CoreDataManager.shared.saveUpdateCompanyDetails(company, false) { done in
+                    if done {
+                        print("DEBUG: \(company.name) saved to Core Data ✅")
+                    }
+                }
+            }
+        }
+        
+        //  get all company responses from core data 
+        let viewController                      = CompanysListVC()
+        viewController.cdCompanyResponse        = CoreDataManager.shared.fetchAllCompanys()
+        let navController                       = UINavigationController(rootViewController: viewController)
+        navController.modalPresentationStyle    = .fullScreen
+        navController.modalTransitionStyle      = .crossDissolve
+        present(navController, animated: true)
+    }
     
     
     
