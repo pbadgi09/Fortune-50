@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 final class LaunchVC: UIViewController {
     
@@ -20,6 +21,10 @@ final class LaunchVC: UIViewController {
         return iv
     }()
     
+    
+    private let monitor = NWPathMonitor()
+    
+    private let queue = DispatchQueue(label: "InternetConnectionMonitor")
     
     
     
@@ -52,6 +57,13 @@ final class LaunchVC: UIViewController {
             self?.animate()
         })
     }
+    
+    
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        stopNetworkMonitoring()
+//    }
     
     
     
@@ -98,10 +110,32 @@ final class LaunchVC: UIViewController {
         }) { [weak self] done in
             if done {
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
-                    self?.fetchAndShowCompanyListFeed()
+                    self?.checkIfConnectedToInternet()
                 })
             }
         }
+    }
+    
+    
+    
+    private func checkIfConnectedToInternet() {
+        monitor.pathUpdateHandler = { [weak self] pathupdateHadler in
+            if pathupdateHadler.status == .satisfied {
+                print("INTERNET: Internet Connection Available")
+                self?.fetchAndShowCompanyListFeed()
+            } else {
+                print("INTERNET: No Internet Connection")
+                self?.presentCompanyListVC()
+            }
+        }
+        monitor.start(queue: queue)
+    }
+    
+    
+    
+    
+    private func stopNetworkMonitoring() {
+        monitor.cancel()
     }
     
     
@@ -127,6 +161,12 @@ final class LaunchVC: UIViewController {
     
     
     
+    
+   
+    
+    
+    
+    
     private func saveToCoreData(_ companyResponse: [CompanyResponse]) {
         for company in companyResponse {
             //  check if exists
@@ -148,8 +188,15 @@ final class LaunchVC: UIViewController {
                 }
             }
         }
-        
-        //  get all company responses from core data 
+        presentCompanyListVC()
+    }
+    
+    
+    
+    
+    
+    
+    private func presentCompanyListVC() {
         let viewController                      = CompanysListVC()
         viewController.cdCompanyResponse        = CoreDataManager.shared.fetchAllCompanys()
         let navController                       = UINavigationController(rootViewController: viewController)
