@@ -135,6 +135,28 @@ final class CoreDataManager {
     
     
     
+    func updateIsFavourite(_ symbol: String, _ isFavourite: Bool, _ completion: @escaping (Bool) -> ()) {
+        let fetchRequest: NSFetchRequest<CDCompanyResponse> = CDCompanyResponse.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", argumentArray: ["symbol", symbol])
+        do {
+            if let company = try context.fetch(fetchRequest).first {
+                company.isFavourited = isFavourite
+                do {
+                    try context.save()
+                    completion(true)
+                } catch let error {
+                    print("DEBUG: Error updating isFavourites Property in Core Data: \(error.localizedDescription)")
+                    completion(false)
+                }
+            }
+        } catch let error {
+            print("DEBUG: Error Fetching Company: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+    
+    
+    
     
     func getIsFavouritedProperty(_ company: CompanyResponse) -> Bool {
         let companyDetail = fetchSingleCompanyDetails(company)

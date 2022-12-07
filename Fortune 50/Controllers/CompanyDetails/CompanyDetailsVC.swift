@@ -94,6 +94,8 @@ final class CompanyDetailsVC: UIViewController {
     
     //MARK: - Properties
     
+    var isCompanyFavourited = false
+    
     var companyResponse: CDCompanyResponse? {
         didSet {
             updateViews()
@@ -218,11 +220,7 @@ final class CompanyDetailsVC: UIViewController {
                                         paddingLeft: 32,
                                         paddingBottom: 16,
                                         paddingRight: 32)
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let height                                      = self.addToFavouriteButton.frame.size.height
-            self.addToFavouriteButton.layer.cornerRadius    = height / 2
-        }
+        addRoundedCornersToButton()
     }
     
     
@@ -241,6 +239,17 @@ final class CompanyDetailsVC: UIViewController {
         addToFavouriteButton.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
     }
     
+    
+    
+    
+    
+    private func addRoundedCornersToButton() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let height                                      = self.addToFavouriteButton.frame.size.height
+            self.addToFavouriteButton.layer.cornerRadius    = height / 2
+        }
+    }
     
     
     
@@ -270,10 +279,13 @@ final class CompanyDetailsVC: UIViewController {
         if isFavourited {
             addToFavouriteButton.placeholder = "Remove from Favourites"
             addToFavouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            isCompanyFavourited = true
         } else {
             addToFavouriteButton.placeholder = "Add to Favourites"
             addToFavouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            isCompanyFavourited = false
         }
+        addRoundedCornersToButton()
     }
     
     
@@ -284,7 +296,17 @@ final class CompanyDetailsVC: UIViewController {
     
     
     private func handleAddToFavourites() {
-        print("DEBUG: Handle Add to Fav Here")
+        isCompanyFavourited.toggle()
+        guard let company = self.companyResponse,
+              let name = company.name,
+              let symbol = company.symbol else { return }
+        CoreDataManager.shared.updateIsFavourite(symbol, isCompanyFavourited) { [weak self] updated in
+            guard let self = self else { return }
+            if updated {
+                print("DEBUG: Updated is Favourite Property of \(name) to \(self.isCompanyFavourited)")
+                self.configureFavouritesButton(self.isCompanyFavourited)
+            }
+        }
     }
     
     

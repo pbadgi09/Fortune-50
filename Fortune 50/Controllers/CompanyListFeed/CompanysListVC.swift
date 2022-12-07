@@ -103,6 +103,12 @@ final class CompanysListVC: UIViewController {
     
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
     
     
     
