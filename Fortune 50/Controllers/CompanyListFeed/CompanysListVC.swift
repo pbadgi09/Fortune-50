@@ -20,10 +20,10 @@ final class CompanysListVC: UIViewController {
         return button
     }()
     
-    private let filterBarButtonItem: UIButton = {
+    private let settingsBarButtonItem: UIButton = {
         let button          = UIButton(type: .system)
         button.tintColor    = .label
-        button.setImage(UIImage(systemName: "line.3.horizontal.decrease"), for: .normal)
+        button.setImage(UIImage(systemName: "gear"), for: .normal)
         return button
     }()
     
@@ -141,7 +141,7 @@ final class CompanysListVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles  = true
         navigationItem.searchController                         = searchController
         let favouritesButton    = UIBarButtonItem(customView: favouritesBarButtonItem)
-        let filterButton        = UIBarButtonItem(customView: filterBarButtonItem)
+        let filterButton        = UIBarButtonItem(customView: settingsBarButtonItem)
         navigationItem.rightBarButtonItems = [favouritesButton, filterButton]
     }
     
@@ -174,7 +174,7 @@ final class CompanysListVC: UIViewController {
     /// Adds recognizers and targets
     private func addRecognizers() {
         favouritesBarButtonItem.addTarget(self, action: #selector(favouritesBarButtonTapped), for: .touchUpInside)
-        filterBarButtonItem.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
+        settingsBarButtonItem.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
     }
     
     
@@ -258,16 +258,9 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
-    @objc private func filterButtonTapped() {
-        print("DEBUG: Filter Button Tapped")
+    @objc private func settingsButtonTapped() {
+        navigationController?.pushViewController(SettingsVC(), animated: true)
     }
-    
-    
-    
-    
-    
-    
     
     
     
@@ -371,17 +364,6 @@ extension CompanysListVC: UISearchBarDelegate {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

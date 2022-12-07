@@ -25,6 +25,7 @@
 		22BD3BF929412143008247D0 /* CompanyListFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3BF829412143008247D0 /* CompanyListFeedCell.swift */; };
 		22BD3BFC294123CC008247D0 /* FavouritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3BFB294123CC008247D0 /* FavouritesListVC.swift */; };
 		22BD3BFF29412EBE008247D0 /* CompanyDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3BFE29412EBE008247D0 /* CompanyDetailsVC.swift */; };
+		22BD3C0229413859008247D0 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0129413859008247D0 /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		22BD3BF829412143008247D0 /* CompanyListFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListFeedCell.swift; sourceTree = "<group>"; };
 		22BD3BFB294123CC008247D0 /* FavouritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListVC.swift; sourceTree = "<group>"; };
 		22BD3BFE29412EBE008247D0 /* CompanyDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsVC.swift; sourceTree = "<group>"; };
+		22BD3C0129413859008247D0 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		22BD3BCD2941113F008247D0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				22BD3C002941384A008247D0 /* SettingsPage */,
 				22BD3BFA294123B4008247D0 /* FavouritesList */,
 				22BD3BFD29412EA4008247D0 /* CompanyDetails */,
 				22BD3BEF294116C2008247D0 /* CompanyListFeed */,
@@ -287,6 +290,14 @@
 			path = CompanyDetails;
 			sourceTree = "<group>";
 		};
+		22BD3C002941384A008247D0 /* SettingsPage */ = {
+			isa = PBXGroup;
+			children = (
+				22BD3C0129413859008247D0 /* SettingsVC.swift */,
+			);
+			path = SettingsPage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -357,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BD3C0229413859008247D0 /* SettingsVC.swift in Sources */,
 				22BD3BF1294116F8008247D0 /* CompanysListVC.swift in Sources */,
 				22BD3BEA29411266008247D0 /* UIView+Textfield.swift in Sources */,
 				22BD3BEC29411266008247D0 /* UIView+Label.swift in Sources */,

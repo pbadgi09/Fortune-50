@@ -221,7 +221,7 @@ final class CompanyDetailsVC: UIViewController {
                                         paddingBottom: 16,
                                         paddingRight: 32)
         DispatchQueue.main.async { [weak self] in
-            guard let self                                  = self else { return }
+            guard let self = self else { return }
             let height                                      = self.addToFavouriteButton.frame.size.height
             self.addToFavouriteButton.layer.cornerRadius    = height / 2
         }
