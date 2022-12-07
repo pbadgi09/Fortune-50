@@ -14,9 +14,16 @@ final class CompanysListVC: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     private let favouritesBarButtonItem: UIButton = {
-        let button = UIButton()
+        let button          = UIButton(type: .system)
+        button.tintColor    = .label
         button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        button.tintColor = .label
+        return button
+    }()
+    
+    private let filterBarButtonItem: UIButton = {
+        let button          = UIButton(type: .system)
+        button.tintColor    = .label
+        button.setImage(UIImage(systemName: "line.3.horizontal.decrease"), for: .normal)
         return button
     }()
     
@@ -46,8 +53,11 @@ final class CompanysListVC: UIViewController {
         didSet { collectionView.reloadData() }
     }
     
+    var filteredCompanyResponse = [CompanyResponse]() {
+        didSet { collectionView.reloadData() }
+    }
     
-    
+    var inSearchMode = false
     
     
     
@@ -130,7 +140,9 @@ final class CompanysListVC: UIViewController {
         title                                                   = "Fortune 50"
         navigationController?.navigationBar.prefersLargeTitles  = true
         navigationItem.searchController                         = searchController
-        navigationItem.rightBarButtonItem                       = UIBarButtonItem(customView: favouritesBarButtonItem)
+        let favouritesButton    = UIBarButtonItem(customView: favouritesBarButtonItem)
+        let filterButton        = UIBarButtonItem(customView: filterBarButtonItem)
+        navigationItem.rightBarButtonItems = [favouritesButton, filterButton]
     }
     
    
@@ -162,6 +174,7 @@ final class CompanysListVC: UIViewController {
     /// Adds recognizers and targets
     private func addRecognizers() {
         favouritesBarButtonItem.addTarget(self, action: #selector(favouritesBarButtonTapped), for: .touchUpInside)
+        filterBarButtonItem.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
     }
     
     
@@ -246,7 +259,9 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
+    @objc private func filterButtonTapped() {
+        print("DEBUG: Filter Button Tapped")
+    }
     
     
     
@@ -279,15 +294,36 @@ final class CompanysListVC: UIViewController {
 extension CompanysListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return companyResponse.count
+        if inSearchMode {
+            return filteredCompanyResponse.count
+        } else {
+            return companyResponse.count
+        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let companyResponse = companyResponse[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
-        cell.configureCellUI(companyResponse)
+        var response: CompanyResponse!
+        let cell            = collectionView.dequeueReusableCell(withReuseIdentifier: CompanyListFeedCell.identifier, for: indexPath) as! CompanyListFeedCell
+        if inSearchMode {
+            response = filteredCompanyResponse[indexPath.row]
+        } else {
+            response = companyResponse[indexPath.row]
+        }
+        cell.configureCellUI(response)
         return cell
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var response: CompanyResponse!
+        if inSearchMode {
+            response = filteredCompanyResponse[indexPath.row]
+        } else {
+            response = companyResponse[indexPath.row]
+        }
+        print("DEBUG: \(response.symbol) Tapped")
     }
     
 }
@@ -310,7 +346,20 @@ extension CompanysListVC: UICollectionViewDelegateFlowLayout {
 extension CompanysListVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("DEBUG: Searching for: \(searchText)")
+        if !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            inSearchMode = true
+            filteredCompanyResponse = companyResponse.filter({ company in
+                return company.symbol.lowercased().contains(searchText.lowercased())
+            })
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        } else {
+            inSearchMode = false
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
 }
