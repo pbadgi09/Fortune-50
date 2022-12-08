@@ -60,7 +60,10 @@ final class LaunchVC: UIViewController {
       
     
     
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopNetworkMonitoring()
+    }
     
     
     

@@ -191,12 +191,15 @@ final class SettingsVC: UIViewController {
     
     
     public func updateLabel() {
-        let currentSortMethod = Preferences.shared.currentSortingMethod()
-        switch currentSortMethod {
-        case .byCompanyName:
-            currentlySortedByLabel.setAttributedText("Current Method: ", "Company Name", .label, .label, UIFont.systemFont(ofSize: 16, weight: .regular), UIFont.systemFont(ofSize: 18, weight: .bold))
-        case .bySymbol:
-            currentlySortedByLabel.setAttributedText("Current Method: ", "Company Symbol", .label, .label, UIFont.systemFont(ofSize: 16, weight: .regular), UIFont.systemFont(ofSize: 18, weight: .bold))
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let currentSortMethod = Preferences.shared.currentSortingMethod()
+            switch currentSortMethod {
+            case .byCompanyName:
+                self.currentlySortedByLabel.setAttributedText("Current Method: ", "Company Name", .label, .label, UIFont.systemFont(ofSize: 16, weight: .regular), UIFont.systemFont(ofSize: 18, weight: .bold))
+            case .bySymbol:
+                self.currentlySortedByLabel.setAttributedText("Current Method: ", "Company Symbol", .label, .label, UIFont.systemFont(ofSize: 16, weight: .regular), UIFont.systemFont(ofSize: 18, weight: .bold))
+            }
         }
     }
     

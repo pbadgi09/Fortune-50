@@ -101,6 +101,7 @@ final class CompanysListVC: UIViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+        sortCompanyList()
     }
     
     
@@ -205,22 +206,39 @@ final class CompanysListVC: UIViewController {
     
     
     
-    private func sortList() {
+    private func sortCompanyList() {
         let method = Preferences.shared.currentSortingMethod()
         switch method {
         case .byCompanyName:
-            DispatchQueue.main.async {
-                self.cdCompanyResponse.sort(by: { $0.name! < $1.name! })
-                self.collectionView.reloadData()
-            }
+            self.sortByName()
         case .bySymbol:
-            DispatchQueue.main.async {
-                self.cdCompanyResponse.sort(by: { $0.symbol! < $1.symbol! })
-                self.collectionView.reloadData()
-            }
+            self.sortBySymbol()
         }
     }
 
+    
+    
+    
+    
+    
+    
+    private func sortByName() {
+        DispatchQueue.main.async { [weak self] in
+            self?.cdCompanyResponse.sort(by: { $0.name! < $1.name! })
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    
+    
+    
+    
+    private func sortBySymbol() {
+        DispatchQueue.main.async { [weak self] in
+            self?.cdCompanyResponse.sort(by: { $0.symbol! < $1.symbol! })
+            self?.collectionView.reloadData()
+        }
+    }
     
     
     
