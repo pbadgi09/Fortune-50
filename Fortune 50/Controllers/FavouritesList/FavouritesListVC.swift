@@ -72,11 +72,6 @@ final class FavouritesListVC: UIViewController {
     }
     
     
-    
-    //MARK: - Deinit
-    deinit { print("Deinit: \(self) deinitialized") }
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {

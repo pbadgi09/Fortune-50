@@ -141,15 +141,7 @@ final class CompanyDetailsVC: UIViewController {
     }
     
     
-    
-    //MARK: - Deinit
-    deinit { print("Deinit: \(self) deinitialized") }
-    
-    
-    
-    
-    
-    
+     
     
     
     
@@ -298,12 +290,10 @@ final class CompanyDetailsVC: UIViewController {
     private func handleAddToFavourites() {
         isCompanyFavourited.toggle()
         guard let company = self.companyResponse,
-              let name = company.name,
               let symbol = company.symbol else { return }
         CoreDataManager.shared.updateIsFavourite(symbol, isCompanyFavourited) { [weak self] updated in
             guard let self = self else { return }
             if updated {
-                print("DEBUG: Updated is Favourite Property of \(name) to \(self.isCompanyFavourited)")
                 self.configureFavouritesButton(self.isCompanyFavourited)
             }
         }

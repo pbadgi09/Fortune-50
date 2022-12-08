@@ -29,6 +29,7 @@
 		22BD3C0829413A23008247D0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0729413A23008247D0 /* CoreDataManager.swift */; };
 		22BD3C0B294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C09294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift */; };
 		22BD3C0C294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0A294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift */; };
+		22BD3C0F2941568D008247D0 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD3C0E2941568C008247D0 /* Preferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		22BD3C0729413A23008247D0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		22BD3C09294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataClass.swift"; sourceTree = "<group>"; };
 		22BD3C0A294145C2008247D0 /* CDCompanyResponse+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCompanyResponse+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		22BD3C0E2941568C008247D0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		22BD3BD22941116E008247D0 /* API+Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				22BD3C0D29415682008247D0 /* Preferences */,
 				22BD3BDC294111E5008247D0 /* Network Service */,
 				22BD3BDB294111E1008247D0 /* Core Data */,
 			);
@@ -307,6 +310,14 @@
 			path = SettingsPage;
 			sourceTree = "<group>";
 		};
+		22BD3C0D29415682008247D0 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				22BD3C0E2941568C008247D0 /* Preferences.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -385,6 +396,7 @@
 				22BD3BE52941124E008247D0 /* UIViewController+Extensions.swift in Sources */,
 				22BD3C0B294145C2008247D0 /* CDCompanyResponse+CoreDataClass.swift in Sources */,
 				22BD3BB7294110CA008247D0 /* AppDelegate.swift in Sources */,
+				22BD3C0F2941568D008247D0 /* Preferences.swift in Sources */,
 				22BD3BEB29411266008247D0 /* UIView+Button.swift in Sources */,
 				22BD3BFF29412EBE008247D0 /* CompanyDetailsVC.swift in Sources */,
 				22BD3BF329411883008247D0 /* CompanyResponse.swift in Sources */,

@@ -81,7 +81,6 @@ final class CompanysListVC: UIViewController {
         configureUI()
         addRecognizers()
         addDelegates()
-        executeAPIs()
     }
     
     
@@ -95,12 +94,6 @@ final class CompanysListVC: UIViewController {
         super.viewDidLayoutSubviews()
         configureViews()
     }
-    
-    
-    
-    //MARK: - Deinit
-    deinit { print("Deinit: \(self) deinitialized") }
-    
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -212,16 +205,22 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
-    /// Executes APIs
-    private func executeAPIs() {
-        
+    private func sortList() {
+        let method = Preferences.shared.currentSortingMethod()
+        switch method {
+        case .byCompanyName:
+            DispatchQueue.main.async {
+                self.cdCompanyResponse.sort(by: { $0.name! < $1.name! })
+                self.collectionView.reloadData()
+            }
+        case .bySymbol:
+            DispatchQueue.main.async {
+                self.cdCompanyResponse.sort(by: { $0.symbol! < $1.symbol! })
+                self.collectionView.reloadData()
+            }
+        }
     }
+
     
     
     

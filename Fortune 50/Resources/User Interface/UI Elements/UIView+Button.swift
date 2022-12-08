@@ -44,9 +44,9 @@ final class ButtonView: UIButton {
     
     private func updateViews() {
         setButtonImage()
-        checkIfRounded()
         checkIfLargeButton()
         checkIfAttributedButton()
+        checkIfRounded()
         setTitleColor(tintcolor, for: .normal)
         backgroundColor         = backgroundcolor
         tintColor               = tintcolor

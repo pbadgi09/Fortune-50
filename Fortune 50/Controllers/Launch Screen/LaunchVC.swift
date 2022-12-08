@@ -57,23 +57,7 @@ final class LaunchVC: UIViewController {
             self?.animate()
         })
     }
-    
-    
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        stopNetworkMonitoring()
-//    }
-    
-    
-    
-    //MARK: - Deinit
-    deinit { print("Deinit: \(self) deinitialized") }
-    
-    
-    
-    
-    
+      
     
     
     
@@ -121,10 +105,8 @@ final class LaunchVC: UIViewController {
     private func checkIfConnectedToInternet() {
         monitor.pathUpdateHandler = { [weak self] pathupdateHadler in
             if pathupdateHadler.status == .satisfied {
-                print("INTERNET: Internet Connection Available")
                 self?.fetchAndShowCompanyListFeed()
             } else {
-                print("INTERNET: No Internet Connection")
                 self?.presentCompanyListVC()
             }
         }
@@ -176,14 +158,14 @@ final class LaunchVC: UIViewController {
                 //  save/update in core data
                 CoreDataManager.shared.saveUpdateCompanyDetails(company, isFavourited) { done in
                     if done {
-                        print("DEBUG: \(company.name) saved to Core Data ✅")
+                        // saved to CD
                     }
                 }
             } else {
                 //  save to core data
                 CoreDataManager.shared.saveUpdateCompanyDetails(company, false) { done in
                     if done {
-                        print("DEBUG: \(company.name) saved to Core Data ✅")
+                        //  saved to CD
                     }
                 }
             }
