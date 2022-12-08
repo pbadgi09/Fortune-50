@@ -178,8 +178,8 @@ final class SettingsVC: UIViewController {
     /// Update's UI for Label & Buttons on the Main Thread
     private func updateViews() {
         updateLabel()
-        addRoundedCornersToButton(sortByCompanyNameButton)
-        addRoundedCornersToButton(sortByCompanySymbolButton)
+        roundButtonCorners(sortByCompanyNameButton)
+        roundButtonCorners(sortByCompanySymbolButton)
     }
     
     
@@ -187,16 +187,6 @@ final class SettingsVC: UIViewController {
     
     
     
-    
-    
-    /// Rounds the Corners of the Buttons on the main thread after calculating the frame of the button
-    /// - Parameter button: UIButton
-    private func addRoundedCornersToButton(_ button: UIButton) {
-        DispatchQueue.main.async {
-            let height                                      = button.frame.size.height
-            button.layer.cornerRadius                       = height / 2
-        }
-    }
     
     
     
