@@ -84,6 +84,8 @@ final class LaunchVC: UIViewController {
     
     //MARK: - Helpers
     
+    
+    /// Animates the app icon & checks if the application is connected to the internet
     private func animate() {
         UIView.animate(withDuration: 1, animations: {
             let size = self.view.frame.size.width * 2
@@ -105,6 +107,9 @@ final class LaunchVC: UIViewController {
     
     
     
+    
+    
+    /// Checks if connected to the internet..if connected then fetches and updates the companies in core data else presents the list vc with the companies already in core data - this can also be empty on the first load of app
     private func checkIfConnectedToInternet() {
         monitor.pathUpdateHandler = { [weak self] pathupdateHadler in
             if pathupdateHadler.status == .satisfied {
@@ -119,6 +124,8 @@ final class LaunchVC: UIViewController {
     
     
     
+    
+    /// Stops network monitoring once the view disappears
     private func stopNetworkMonitoring() {
         monitor.cancel()
     }
@@ -129,6 +136,7 @@ final class LaunchVC: UIViewController {
     
     
     
+    /// Fetches & shows the company list view controller from either core data or network call
     private func fetchAndShowCompanyListFeed() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -152,6 +160,8 @@ final class LaunchVC: UIViewController {
     
     
     
+    /// Saves or Updates company details in core data based on whether it already exists
+    /// - Parameter companyResponse: Array of Company Response Objects
     private func saveToCoreData(_ companyResponse: [CompanyResponse]) {
         for company in companyResponse {
             //  check if exists
@@ -181,6 +191,7 @@ final class LaunchVC: UIViewController {
     
     
     
+    /// Presents the Feed View Controller with companies 
     private func presentCompanyListVC() {
         let viewController                      = CompanysListVC()
         viewController.cdCompanyResponse        = CoreDataManager.shared.fetchAllCompanys()

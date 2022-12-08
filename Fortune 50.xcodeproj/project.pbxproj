@@ -141,8 +141,6 @@
 		22BD3BD129411159008247D0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				22BD3BE22941122C008247D0 /* Protocols */,
-				22BD3BE129411227008247D0 /* Constants */,
 				22BD3BE02941121D008247D0 /* Extensions */,
 			);
 			path = Utils;
@@ -181,16 +179,8 @@
 			children = (
 				22BD3BDA294111D4008247D0 /* Assets */,
 				22BD3BD9294111D0008247D0 /* UI Elements */,
-				22BD3BD8294111C9008247D0 /* UI Constants */,
 			);
 			path = "User Interface";
-			sourceTree = "<group>";
-		};
-		22BD3BD8294111C9008247D0 /* UI Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "UI Constants";
 			sourceTree = "<group>";
 		};
 		22BD3BD9294111D0008247D0 /* UI Elements */ = {
@@ -262,20 +252,6 @@
 				22BD3BE32941124E008247D0 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		22BD3BE129411227008247D0 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		22BD3BE22941122C008247D0 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		22BD3BEF294116C2008247D0 /* CompanyListFeed */ = {

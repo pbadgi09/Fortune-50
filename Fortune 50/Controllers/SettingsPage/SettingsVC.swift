@@ -56,12 +56,7 @@ final class SettingsVC: UIViewController {
     
     
     
-    
-    //MARK: - Properties
-    
-    
-    
-    
+
     
     
     
@@ -133,9 +128,12 @@ final class SettingsVC: UIViewController {
     
     
     
+    
+    
+    /// Configures the Navigation Bar for Settings Page
     private func configureNavigationBar() {
-        title = "Settings"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        title                                                   = "Settings"
+        navigationController?.navigationBar.prefersLargeTitles  = true
     }
     
     
@@ -144,6 +142,9 @@ final class SettingsVC: UIViewController {
     
     
     
+    
+    
+    /// Configures & Layouts the views
     private func configureViews() {
         //  add sub views
         view.addSubview(currentlySortedByLabel)
@@ -173,6 +174,8 @@ final class SettingsVC: UIViewController {
     
     
     
+    
+    /// Update's UI for Label & Buttons on the Main Thread
     private func updateViews() {
         updateLabel()
         addRoundedCornersToButton(sortByCompanyNameButton)
@@ -182,6 +185,12 @@ final class SettingsVC: UIViewController {
     
     
     
+    
+    
+    
+    
+    /// Rounds the Corners of the Buttons on the main thread after calculating the frame of the button
+    /// - Parameter button: UIButton
     private func addRoundedCornersToButton(_ button: UIButton) {
         DispatchQueue.main.async {
             let height                                      = button.frame.size.height
@@ -190,6 +199,14 @@ final class SettingsVC: UIViewController {
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    /// Updates the label based on the current sorting method on the main thread
     public func updateLabel() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -206,30 +223,13 @@ final class SettingsVC: UIViewController {
     
     
     
+    
+    
     /// Adds recognizers and targets
     private func addRecognizers() {
         sortByCompanyNameButton.addTarget(self, action: #selector(nameButtonTapped), for: .touchUpInside)
         sortByCompanySymbolButton.addTarget(self, action: #selector(symbolButtonTapped), for: .touchUpInside)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

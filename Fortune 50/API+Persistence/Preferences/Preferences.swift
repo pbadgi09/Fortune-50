@@ -25,8 +25,12 @@ final class Preferences {
     private init() {}
     
     
-    //MARK: - Getter / Setters
     
+    
+    //MARK: - Helpers
+    
+    /// Checks if the Sorting method exists User Defaults
+    /// - Returns: Bool
     func sortMethodExists() -> Bool {
         if defaults.object(forKey: "sortBy") != nil {
             return true
@@ -35,6 +39,13 @@ final class Preferences {
         }
     }
     
+    
+    
+    
+    
+    
+    /// Sets the sorting method in user defaults and overwrites if already exists
+    /// - Parameter method: SortBy Eum
     func setSortMethod(_ method: SortBy) {
         if sortMethodExists() {
             defaults.set(method.rawValue, forKey: "sortBy")
@@ -44,6 +55,11 @@ final class Preferences {
     }
     
     
+    
+    
+    
+    /// Returns the current sorting method for companies
+    /// - Returns: SortBy Enum Value
     func currentSortingMethod() -> SortBy {
         if sortMethodExists() {
             let method = defaults.string(forKey: "sortBy")

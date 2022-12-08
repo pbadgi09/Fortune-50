@@ -103,6 +103,9 @@ final class FavouritesListVC: UIViewController {
     
     //MARK: - Helpers
     
+    
+    
+    /// Configures the UI for FavouritesList VC
     private func configureUI() {
         configureViewControllerUI(.systemBackground, false)
         configureNavigationBar()
@@ -110,6 +113,10 @@ final class FavouritesListVC: UIViewController {
     
     
     
+    
+    
+    
+    /// Configures the Navigation Bar for this view controller
     private func configureNavigationBar() {
         title                                                   = "Favourites"
         navigationController?.navigationBar.prefersLargeTitles  = true
@@ -120,6 +127,8 @@ final class FavouritesListVC: UIViewController {
     
     
     
+    
+    /// Configures & layout's the views for this view controller
     private func configureViews() {
         //  add sub views
         view.addSubview(collectionView)
@@ -136,41 +145,11 @@ final class FavouritesListVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /// Adds delegates
     private func addDelegates() {
         collectionView.delegate             = self
         collectionView.dataSource           = self
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -216,56 +195,6 @@ extension FavouritesListVC: UICollectionViewDelegateFlowLayout {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

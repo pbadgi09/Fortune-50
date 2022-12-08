@@ -35,4 +35,12 @@ extension UIViewController {
         return result
     }
     
+    
+    func roundButtonCorners(_ button: UIButton) {
+        DispatchQueue.main.async {
+            let height = button.frame.size.height
+            button.layer.cornerRadius = height / 2
+        }
+    }
+    
 }

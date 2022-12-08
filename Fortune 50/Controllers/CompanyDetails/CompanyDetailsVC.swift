@@ -83,15 +83,6 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //MARK: - Properties
     
     var isCompanyFavourited = false
@@ -101,18 +92,6 @@ final class CompanyDetailsVC: UIViewController {
             updateViews()
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -149,21 +128,11 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //MARK: - Helpers
     
+    
+    
+    /// Configures the UI for this view controller
     private func configureUI() {
         configureViewControllerUI(.systemBackground, false)
         configureNavigationBar()
@@ -173,6 +142,7 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
+    /// Configures the navigation bar for this view controller
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles  = true
     }
@@ -183,6 +153,7 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
+    /// Configures & Layout's the view for this view controller
     private func configureViews() {
         //  add sub views
         view.addSubview(symbolLabel)
@@ -212,12 +183,8 @@ final class CompanyDetailsVC: UIViewController {
                                         paddingLeft: 32,
                                         paddingBottom: 16,
                                         paddingRight: 32)
-        addRoundedCornersToButton()
+        roundButtonCorners(addToFavouriteButton)
     }
-    
-    
-    
-    
     
     
     
@@ -235,19 +202,9 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
-    private func addRoundedCornersToButton() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let height                                      = self.addToFavouriteButton.frame.size.height
-            self.addToFavouriteButton.layer.cornerRadius    = height / 2
-        }
-    }
     
     
-    
-    
-    
-    
+    /// Updates the view's ui with current company response data
     private func updateViews() {
         guard let companyResponse = companyResponse else { return }
         guard let name = companyResponse.name,
@@ -267,6 +224,11 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
+    
+    
+    
+    /// Configures the favourite button based on if the company is added in favourites or not
+    /// - Parameter isFavourited: UIButton
     private func configureFavouritesButton(_ isFavourited: Bool) {
         if isFavourited {
             addToFavouriteButton.placeholder = "Remove from Favourites"
@@ -277,7 +239,7 @@ final class CompanyDetailsVC: UIViewController {
             addToFavouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
             isCompanyFavourited = false
         }
-        addRoundedCornersToButton()
+        roundButtonCorners(addToFavouriteButton)
     }
     
     
@@ -287,6 +249,7 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
+    /// Handles add to favourites functionality
     private func handleAddToFavourites() {
         isCompanyFavourited.toggle()
         guard let company = self.companyResponse,
@@ -324,40 +287,7 @@ final class CompanyDetailsVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
-
-//MARK: - Extensions
-
-
-
-
-
-
 
 
 

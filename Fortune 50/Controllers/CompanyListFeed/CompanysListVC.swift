@@ -128,6 +128,9 @@ final class CompanysListVC: UIViewController {
     
     //MARK: - Helpers
     
+    
+    
+    /// Configures the UI for this view controller
     private func configureUI() {
         configureViewControllerUI(.systemBackground, false)
         configureNavigationBar()
@@ -136,6 +139,8 @@ final class CompanysListVC: UIViewController {
     
     
     
+    
+    /// Configures the navigation bar with title, and bar button items
     private func configureNavigationBar() {
         title                                                   = "Fortune 50"
         navigationController?.navigationBar.prefersLargeTitles  = true
@@ -148,6 +153,8 @@ final class CompanysListVC: UIViewController {
    
     
     
+    
+    /// Configures the views & layout's for this view controller
     private func configureViews() {
         //  add sub views
         view.addSubview(collectionView)
@@ -165,27 +172,11 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
     /// Adds recognizers and targets
     private func addRecognizers() {
         favouritesBarButtonItem.addTarget(self, action: #selector(favouritesBarButtonTapped), for: .touchUpInside)
         settingsBarButtonItem.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -201,11 +192,7 @@ final class CompanysListVC: UIViewController {
     
     
     
-    
-    
-    
-    
-    
+    /// Decides which method to use to sort the list of companies
     private func sortCompanyList() {
         let method = Preferences.shared.currentSortingMethod()
         switch method {
@@ -222,6 +209,7 @@ final class CompanysListVC: UIViewController {
     
     
     
+    /// Sorts the companies by their Name attribute - Default method is alphabeticall
     private func sortByName() {
         DispatchQueue.main.async { [weak self] in
             self?.cdCompanyResponse.sort(by: { $0.name! < $1.name! })
@@ -233,19 +221,13 @@ final class CompanysListVC: UIViewController {
     
     
     
+    /// Sorts the companies by their symbol attribute - Default method is alphabeticall
     private func sortBySymbol() {
         DispatchQueue.main.async { [weak self] in
             self?.cdCompanyResponse.sort(by: { $0.symbol! < $1.symbol! })
             self?.collectionView.reloadData()
         }
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -269,17 +251,6 @@ final class CompanysListVC: UIViewController {
     @objc private func settingsButtonTapped() {
         navigationController?.pushViewController(SettingsVC(), animated: true)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
